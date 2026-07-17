@@ -1,0 +1,403 @@
+/* ==========================================================================
+   FENDI — LINK HUB
+   Liquid Glass Design System | Black & Gold Theme
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design tokens
+   -------------------------------------------------------------------------- */
+:root{
+  /* palette — amber/gold on near-black, macOS liquid-glass dark mode */
+  --sky-50:  #2a2410;
+  --sky-100: #3a2f0f;
+  --sky-200: #6b5416;
+  --sky-300: #b8901f;
+  --sky-400: #e6b325;
+  --blue-500:#ffd23f;
+  --ink:     #f5e6b8;
+  --ink-soft:#e0c878;
+  --ink-faint:#a89660;
+
+  /* base surface */
+  --bg-0: #0a0a0c;
+  --bg-1: #121212;
+  --bg-2: #1a1712;
+
+  /* glass */
+  --glass-fill:   rgba(30,26,16,0.45);
+  --glass-fill-hi:rgba(45,38,20,0.6);
+  --glass-edge:   rgba(230,179,37,0.35);
+  --glass-shadow: rgba(0,0,0,0.55);
+
+  /* motion */
+  --ease-liquid: cubic-bezier(.22,.85,.28,1);
+  --ease-soft:   cubic-bezier(.4,0,.2,1);
+
+  /* layout */
+  --radius-lg: 22px;
+  --radius-full: 999px;
+  --max-width: 440px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset
+   -------------------------------------------------------------------------- */
+*, *::before, *::after{
+  box-sizing: border-box;
+}
+
+html, body{
+  margin:0;
+  padding:0;
+  height:100%;
+}
+
+body{
+  font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(60% 45% at 50% 0%, rgba(230,179,37,0.26), transparent 70%),
+    radial-gradient(50% 40% at 100% 100%, rgba(184,144,31,0.18), transparent 70%),
+    linear-gradient(160deg, #2a2415 0%, #221d10 45%, #16130b 100%);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+a{ color: inherit; }
+
+/* --------------------------------------------------------------------------
+   3. Premium static backdrop accents (no motion)
+   -------------------------------------------------------------------------- */
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 40%, rgba(255,210,63,0.05) 50%, transparent 60%);
+}
+
+body::after{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 180px rgba(0,0,0,0.85);
+}
+
+/* small glowing gold stars scattered across background */
+.star-field{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.4px 1.4px at 8% 12%,  rgba(255,214,90,0.95), rgba(255,214,90,0) 70%),
+    radial-gradient(1.1px 1.1px at 22% 68%, rgba(255,214,90,0.8),  rgba(255,214,90,0) 70%),
+    radial-gradient(1.6px 1.6px at 35% 30%, rgba(255,214,90,0.9),  rgba(255,214,90,0) 70%),
+    radial-gradient(1px 1px   at 48% 82%,   rgba(255,214,90,0.7),  rgba(255,214,90,0) 70%),
+    radial-gradient(1.3px 1.3px at 60% 15%, rgba(255,214,90,0.9),  rgba(255,214,90,0) 70%),
+    radial-gradient(1px 1px   at 72% 55%,   rgba(255,214,90,0.75), rgba(255,214,90,0) 70%),
+    radial-gradient(1.5px 1.5px at 85% 25%, rgba(255,214,90,0.9),  rgba(255,214,90,0) 70%),
+    radial-gradient(1.1px 1.1px at 92% 75%, rgba(255,214,90,0.8),  rgba(255,214,90,0) 70%),
+    radial-gradient(1.2px 1.2px at 15% 92%, rgba(255,214,90,0.8),  rgba(255,214,90,0) 70%),
+    radial-gradient(1px 1px   at 40% 55%,   rgba(255,214,90,0.65), rgba(255,214,90,0) 70%),
+    radial-gradient(1.4px 1.4px at 68% 90%, rgba(255,214,90,0.85), rgba(255,214,90,0) 70%),
+    radial-gradient(1px 1px   at 78% 8%,    rgba(255,214,90,0.7),  rgba(255,214,90,0) 70%);
+  background-repeat: no-repeat;
+  animation: twinkle 5s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle{
+  0%   { opacity: 0.55; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+/* --------------------------------------------------------------------------
+   4. Layout
+   -------------------------------------------------------------------------- */
+.wrap{
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+}
+
+/* --------------------------------------------------------------------------
+   5. Profile header
+   -------------------------------------------------------------------------- */
+.profile{
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.avatar-ring{
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(230,179,37,0.4), rgba(20,18,10,0.35));
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid var(--glass-edge);
+  box-shadow:
+    0 10px 28px var(--glass-shadow),
+    inset 0 1px 0 rgba(255,210,63,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: floaty 5s ease-in-out infinite;
+}
+
+.avatar-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  animation: wobble 6s ease-in-out infinite;
+}
+
+@keyframes floaty{
+  0%,100%{ transform: translateY(0); }
+  50%{     transform: translateY(-9px); }
+}
+
+@keyframes wobble{
+  0%,100%{ transform: rotate(-4deg); }
+  50%{     transform: rotate(4deg); }
+}
+
+.profile h1{
+  margin: 0;
+  font-size: clamp(24px, 5vw, 32px);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.tagline{
+  margin: 8px 0 0;
+  font-size: 15px;
+  color: var(--ink-soft);
+  opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   6. Link buttons — liquid glass
+   -------------------------------------------------------------------------- */
+.links{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: var(--max-width);
+}
+
+.link-btn{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: var(--radius-lg);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-edge);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  box-shadow:
+    0 8px 28px var(--glass-shadow),
+    inset 0 1px 0 rgba(255,210,63,0.25),
+    inset 0 -1px 6px rgba(0,0,0,0.4);
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+  transition:
+    transform 0.4s var(--ease-liquid),
+    box-shadow 0.4s var(--ease-soft),
+    background 0.4s var(--ease-soft),
+    border-radius 0.4s var(--ease-liquid);
+}
+
+/* sheen sweep on hover */
+.link-btn::before{
+  content: "";
+  position: absolute;
+  top: 0; left: -60%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,210,63,0.55), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.75s var(--ease-soft);
+  z-index: 0;
+}
+
+.link-btn:hover::before{
+  left: 130%;
+}
+
+.link-btn:hover{
+  transform: translateY(-5px) scale(1.015);
+  border-radius: 28px;
+  background: var(--glass-fill-hi);
+  box-shadow:
+    0 18px 38px var(--glass-shadow),
+    inset 0 1px 0 rgba(255,210,63,0.35),
+    inset 0 -1px 6px rgba(0,0,0,0.45);
+}
+
+.link-btn:active{
+  transform: translateY(-1px) scale(0.97);
+  border-radius: 18px;
+  transition: transform 0.15s var(--ease-soft), border-radius 0.15s var(--ease-soft);
+}
+
+.link-btn:focus-visible{
+  outline: 2px solid var(--blue-500);
+  outline-offset: 3px;
+}
+
+.icon{
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  background: linear-gradient(145deg, var(--sky-400), var(--sky-200));
+  box-shadow: inset 0 1px 2px rgba(255,236,170,0.6), 0 2px 6px rgba(0,0,0,0.4);
+  transition: transform 0.4s var(--ease-liquid);
+}
+
+.link-btn:hover .icon{
+  transform: rotate(-8deg) scale(1.08);
+}
+
+.label{
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+
+.label small{
+  display: block;
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin-top: 2px;
+}
+
+.arrow{
+  position: relative;
+  z-index: 1;
+  font-size: 18px;
+  color: var(--blue-500);
+  transition: transform 0.35s var(--ease-liquid);
+}
+
+.link-btn:hover .arrow{
+  transform: translateX(6px);
+}
+
+/* ripple effect (triggered via JS) */
+.ripple{
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,210,63,0.45);
+  transform: scale(0);
+  animation: ripple-anim 0.6s var(--ease-soft);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes ripple-anim{
+  to{
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Footer
+   -------------------------------------------------------------------------- */
+.site-footer{
+  margin-top: 46px;
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+.site-footer p{
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   8. Scroll / load reveal animations
+   -------------------------------------------------------------------------- */
+[data-animate]{
+  opacity: 0;
+  will-change: transform, opacity;
+  animation-duration: 0.8s;
+  animation-timing-function: var(--ease-liquid);
+  animation-fill-mode: forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+[data-animate="fade-down"]{
+  animation-name: fade-down;
+}
+
+[data-animate="fade-up"]{
+  animation-name: fade-up;
+}
+
+@keyframes fade-down{
+  from{ opacity: 0; transform: translateY(-18px); }
+  to{   opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-up{
+  from{ opacity: 0; transform: translateY(20px); }
+  to{   opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   9. Accessibility
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .star-field{ opacity: 0.5; }
+}
+
+/* --------------------------------------------------------------------------
+   10. Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 380px){
+  .link-btn{
+    padding: 15px 18px;
+    font-size: 15px;
+  }
+  .avatar-ring{
+    width: 76px;
+    height: 76px;
+  }
+}
